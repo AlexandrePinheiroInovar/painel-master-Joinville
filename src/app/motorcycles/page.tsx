@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { PageHeader } from "@/components/shared/page-header";
 import { MotorcycleFilters } from "@/components/motorcycles/motorcycle-filters";
 import { MotorcycleList } from "@/components/motorcycles/motorcycle-list";
@@ -320,35 +321,37 @@ export default function MotorcyclesPage() {
   }
 
   return (
-    <DashboardLayout>
-      <PageHeader
-        title="Gestão de Motos"
-        description="Controle completo da frota"
-        icon={MotorcycleIcon}
-        iconContainerClassName="bg-primary"
-        actions={pageActions}
-      />
-      <MotorcycleFilters onFilterChange={handleFilterChange} initialFilters={filters} />
-      <MotorcycleList
-        filters={filters}
-        motorcycles={motorcycles}
-        onUpdateStatus={handleUpdateMotorcycleStatus}
-        onDeleteMotorcycle={handleDeleteMotorcycle}
-        onEditMotorcycle={handleOpenEditModal}
-        onPauseIdleCount={handlePauseIdleCount}
-      />
-      <Dialog open={isModalOpen} onOpenChange={(isOpen) => {
-        if (!isOpen) handleCloseModal();
-        else setIsModalOpen(true);
-      }}>
-        <DialogContent className="sm:max-w-[625px]">
-          <AddMotorcycleForm
-            onSubmit={handleSaveMotorcycle}
-            onCancel={handleCloseModal}
-            initialData={editingMotorcycle}
-          />
-        </DialogContent>
-      </Dialog>
-    </DashboardLayout>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <PageHeader
+          title="Gestão de Motos"
+          description="Controle completo da frota"
+          icon={MotorcycleIcon}
+          iconContainerClassName="bg-primary"
+          actions={pageActions}
+        />
+        <MotorcycleFilters onFilterChange={handleFilterChange} initialFilters={filters} />
+        <MotorcycleList
+          filters={filters}
+          motorcycles={motorcycles}
+          onUpdateStatus={handleUpdateMotorcycleStatus}
+          onDeleteMotorcycle={handleDeleteMotorcycle}
+          onEditMotorcycle={handleOpenEditModal}
+          onPauseIdleCount={handlePauseIdleCount}
+        />
+        <Dialog open={isModalOpen} onOpenChange={(isOpen) => {
+          if (!isOpen) handleCloseModal();
+          else setIsModalOpen(true);
+        }}>
+          <DialogContent className="sm:max-w-[625px]">
+            <AddMotorcycleForm
+              onSubmit={handleSaveMotorcycle}
+              onCancel={handleCloseModal}
+              initialData={editingMotorcycle}
+            />
+          </DialogContent>
+        </Dialog>
+      </DashboardLayout>
+    </ProtectedRoute>
   );
 }

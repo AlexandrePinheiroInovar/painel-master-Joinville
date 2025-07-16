@@ -51,7 +51,7 @@ export default function LoginPage() {
                 priority
               />
               <div className="text-left">
-                <h1 className="text-2xl font-bold text-primary">Master Salvador</h1>
+                <h1 className="text-2xl font-bold text-primary">Master Joinville</h1>
                 <p className="text-sm text-muted-foreground">Gestão de Locação</p>
               </div>
             </div>
@@ -172,7 +172,7 @@ export default function LoginPage() {
             <span className="text-xs">Sistema de Gestão de Motocicletas</span>
           </div>
           <p className="text-xs text-muted-foreground/70">
-            © 2024 Master Salvador - Todos os direitos reservados
+            © 2024 Master Joinville - Todos os direitos reservados
           </p>
         </div>
       </div>

@@ -166,7 +166,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               priority
             />
              <div>
-              <span className="font-bold text-lg text-sidebar-foreground">Master Salvador</span>
+              <span className="font-bold text-lg text-sidebar-foreground">Master Joinville</span>
               <p className="text-xs text-sidebar-foreground/80">Gestao de Locacao</p>
             </div>
           </Link>

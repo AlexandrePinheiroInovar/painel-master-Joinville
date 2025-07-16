@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await signInWithEmailAndPassword(auth, email, password);
       toast({
         title: "Login realizado com sucesso!",
-        description: "Bem-vindo ao Master Salvador",
+        description: "Bem-vindo ao Master Joinville",
       });
     } catch (error: any) {
       let errorMessage = "Erro ao fazer login";
@@ -108,7 +108,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       toast({
         title: "Conta criada com sucesso!",
-        description: "Bem-vindo ao Master Salvador",
+        description: "Bem-vindo ao Master Joinville",
       });
     } catch (error: any) {
       let errorMessage = "Erro ao criar conta";

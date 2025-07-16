@@ -2,22 +2,23 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
+    // Regras temporárias para desenvolvimento - REMOVER EM PRODUÇÃO
     match /motorcycles/{motorcycleId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if true; // Permite acesso sem autenticação para desenvolvimento
     }
 
     match /rastreadores/{rastreadorId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if true; // Permite acesso sem autenticação para desenvolvimento
     }
 
     match /vendas_motos/{vendaId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if true; // Permite acesso sem autenticação para desenvolvimento
     }
 
     match /users/{userId} {
-      allow create: if request.auth != null;
-      allow read, update: if request.auth.uid == userId;
-      allow list, delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      allow create: if true; // Permite criação sem autenticação para desenvolvimento
+      allow read, update: if true; // Permite leitura/atualização para desenvolvimento
+      allow list, delete: if true; // Permite listagem/exclusão para desenvolvimento
     }
   }
 }
