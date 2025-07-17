@@ -810,3 +810,38 @@ export async function updateWeeklyValuesForRentedMotorcycles(): Promise<void> {
     throw error;
   }
 }
+
+// Função para buscar motos por franqueado e período de datas
+export async function fetchMotorcyclesByFranchiseeAndDateRange(
+  franchisee: string,
+  startDate: string,
+  endDate: string
+): Promise<Motorcycle[]> {
+  try {
+    const snapshot = await getDocs(motorcyclesCollectionRef);
+    const motorcycles = snapshot.docs.map((docSnapshot) => ({
+      ...fromFirestore(docSnapshot.data()),
+      id: docSnapshot.id,
+    }));
+
+    // Filtrar por franqueado e período de datas
+    return motorcycles.filter(moto => {
+      // Filtro por franqueado (case insensitive)
+      const matchesFranchisee = moto.franqueado?.toLowerCase().trim() === franchisee.toLowerCase().trim();
+      
+      // Filtro por período de datas (se data_ultima_mov existir)
+      let matchesDateRange = true;
+      if (moto.data_ultima_mov) {
+        const motoDate = new Date(moto.data_ultima_mov);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        matchesDateRange = motoDate >= start && motoDate <= end;
+      }
+      
+      return matchesFranchisee && matchesDateRange;
+    });
+  } catch (error) {
+    console.error('Erro ao buscar motos por franqueado e período:', error);
+    throw error;
+  }
+}
