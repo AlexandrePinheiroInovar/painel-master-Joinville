@@ -179,6 +179,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             <SidebarMenu>
               {navItems.map((item) => {
                 // Verifica se o item é restrito e se o usuário tem acesso
+                // (mantém a lógica de acesso, mas não mostra mais o cadeado)
                 let isRestricted = false;
                 let hasAccess = true;
                 if (item.href === "/motorcycles") {
@@ -196,12 +197,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                   >
                     <item.icon className="h-5 w-5" />
                     <div className="flex flex-col items-start">
-                      <span className="flex items-center gap-1">
-                        {item.label}
-                        {isRestricted && !hasAccess && (
-                          <Lock className="h-4 w-4 text-red-500 ml-1" />
-                        )}
-                      </span>
+                      <span>{item.label}</span>
                       {item.subLabel && <span className="text-xs text-sidebar-foreground/70 -mt-0.5">{item.subLabel}</span>}
                     </div>
                   </SidebarMenuButton>
@@ -209,14 +205,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 return (
                   <SidebarMenuItem key={item.label}>
                     <Link href={item.href} legacyBehavior={false}>
-                      {isRestricted && !hasAccess ? (
-                        <Tooltip>
-                          <TooltipTrigger asChild>{menuButton}</TooltipTrigger>
-                          <TooltipContent side="right">Acesso restrito</TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        menuButton
-                      )}
+                      {menuButton}
                     </Link>
                   </SidebarMenuItem>
                 );
