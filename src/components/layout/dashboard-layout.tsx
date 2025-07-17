@@ -21,11 +21,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { LayoutDashboard, ListFilter, Users, BarChart3, Package, MapPin, Wrench, CheckCircle2, XCircle, Bike as SidebarBikeIcon, TrendingUp, LogOut, User, Settings, DollarSign, SatelliteDish } from "lucide-react";
+import { LayoutDashboard, ListFilter, Users, BarChart3, Package, MapPin, Wrench, CheckCircle2, XCircle, Bike as SidebarBikeIcon, TrendingUp, LogOut, User, Settings, DollarSign, SatelliteDish, Lock } from "lucide-react";
 import type { NavItem, StatusRapidoItem as StatusRapidoItemType, Motorcycle, MotorcycleStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { subscribeToMotorcycles } from '@/lib/firebase/motorcycleService';
 import { useAuth } from '@/context/AuthContext';
+import { hasMotorcycleAccess, hasVendaMotosAccess } from '@/lib/utils/permissions';
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navItems: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", subLabel: "Visão geral", icon: LayoutDashboard },
@@ -175,23 +177,50 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           <div className="p-2">
             <p className="px-2 py-1 text-xs font-semibold text-sidebar-foreground/70">NAVEGAÇÃO</p>
             <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.label}>
-                  <Link href={item.href} legacyBehavior={false}>
-                    <SidebarMenuButton
-                      isActive={pathname === item.href}
-                      tooltip={item.labelTooltip || item.label}
-                      className="h-auto py-1.5"
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <div className="flex flex-col items-start">
-                        <span>{item.label}</span>
-                        {item.subLabel && <span className="text-xs text-sidebar-foreground/70 -mt-0.5">{item.subLabel}</span>}
-                      </div>
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
+              {navItems.map((item) => {
+                // Verifica se o item é restrito e se o usuário tem acesso
+                let isRestricted = false;
+                let hasAccess = true;
+                if (item.href === "/motorcycles") {
+                  isRestricted = true;
+                  hasAccess = user ? hasMotorcycleAccess(user.uid) : false;
+                } else if (item.href === "/venda-motos") {
+                  isRestricted = true;
+                  hasAccess = user ? hasVendaMotosAccess(user.uid) : false;
+                }
+                const menuButton = (
+                  <SidebarMenuButton
+                    isActive={pathname === item.href}
+                    tooltip={item.labelTooltip || item.label}
+                    className="h-auto py-1.5"
+                  >
+                    <item.icon className="h-5 w-5" />
+                    <div className="flex flex-col items-start">
+                      <span className="flex items-center gap-1">
+                        {item.label}
+                        {isRestricted && !hasAccess && (
+                          <Lock className="h-4 w-4 text-red-500 ml-1" />
+                        )}
+                      </span>
+                      {item.subLabel && <span className="text-xs text-sidebar-foreground/70 -mt-0.5">{item.subLabel}</span>}
+                    </div>
+                  </SidebarMenuButton>
+                );
+                return (
+                  <SidebarMenuItem key={item.label}>
+                    <Link href={item.href} legacyBehavior={false}>
+                      {isRestricted && !hasAccess ? (
+                        <Tooltip>
+                          <TooltipTrigger asChild>{menuButton}</TooltipTrigger>
+                          <TooltipContent side="right">Acesso restrito</TooltipContent>
+                        </Tooltip>
+                      ) : (
+                        menuButton
+                      )}
+                    </Link>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </div>
           <SidebarSeparator className="my-2" />

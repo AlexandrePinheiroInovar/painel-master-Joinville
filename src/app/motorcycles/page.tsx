@@ -33,12 +33,23 @@ import {
   deleteAllMotorcycles as deleteAllFromDB,
   updateWeeklyValuesForRentedMotorcycles,
 } from '@/lib/firebase/motorcycleService';
+import { useAuth } from "@/context/AuthContext";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { ShieldAlert } from "lucide-react";
+import { hasMotorcycleAccess } from '@/lib/utils/permissions';
 
 export type MotorcyclePageFilters = {
   status: MotorcycleStatus | 'all';
   model: string | 'all';
   searchTerm: string;
 };
+
+// Lista de IDs de usuários permitidos (igual à página de vendas de motos)
+const ALLOWED_USER_IDS = [
+  "edsTZ2zG54Ph2ZoNSyFZXoJj74s2", // Exemplo
+  "FOHbVCbMyhadO3tm1rVdknwLVPr1", // Exemplo
+  // Adicione aqui o UID dos usuários liberados
+];
 
 export default function MotorcyclesPage() {
   const [filters, setFilters] = useState<MotorcyclePageFilters>({
@@ -52,6 +63,7 @@ export default function MotorcyclesPage() {
   const [isDeleteAllAlertOpen, setIsDeleteAllAlertOpen] = useState(false);
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     setIsLoading(true);
@@ -304,17 +316,34 @@ export default function MotorcyclesPage() {
     </>
   );
 
-  if (isLoading) {
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="flex justify-center items-center h-64">
+          <p>Carregando...</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  // Verifica se o ID do usuário está na lista de permitidos
+  if (!user || !hasMotorcycleAccess(user.uid)) {
     return (
       <DashboardLayout>
         <PageHeader
-          title="Gestão de Motos"
-          description="Controle completo da frota"
-          icon={MotorcycleIcon}
-          iconContainerClassName="bg-primary"
+          title="Acesso Restrito"
+          description="Você não tem permissão para visualizar esta página."
+          icon={ShieldAlert}
+          iconContainerClassName="bg-red-600"
         />
-        <div className="flex justify-center items-center h-64">
-          <p>Carregando dados das motocicletas...</p>
+        <div className="p-4">
+          <Alert variant="destructive">
+            <ShieldAlert className="h-4 w-4" />
+            <AlertTitle>Acesso Negado</AlertTitle>
+            <AlertDescription>
+              Esta área é restrita e requer permissões especiais. Por favor, entre em contato com o administrador se você acredita que isso é um erro.
+            </AlertDescription>
+          </Alert>
         </div>
       </DashboardLayout>
     );

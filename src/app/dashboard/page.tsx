@@ -366,9 +366,10 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Cards de dados do dia (hoje) */}
+        {/* Cards de dados do dia (hoje) - NOVO PADRÃO */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-6">
-          <Card className="border-l-4 border-l-blue-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Motos Alugadas Hoje */}
+          <Card className="border-l-4 border-l-blue-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
                 <p className="text-sm text-muted-foreground font-medium">Motos Alugadas Hoje</p>
@@ -380,12 +381,12 @@ export default function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-
-          <Card className="border-l-4 border-l-green-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Motos Disponíveis Hoje */}
+          <Card className="border-l-4 border-l-green-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">Motos Recuperadas Hoje</p>
-                <p className="text-2xl font-bold text-green-500">{todayData.motosRecuperadasHoje}</p>
+                <p className="text-sm text-muted-foreground font-medium">Motos Disponíveis Hoje</p>
+                <p className="text-2xl font-bold text-green-500">{monthData.motosDisponiveis}</p>
                 <p className="text-xs text-muted-foreground">unidades</p>
               </div>
               <div className="p-3 rounded-lg bg-green-500">
@@ -393,24 +394,24 @@ export default function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-
-          <Card className="border-l-4 border-l-gray-400 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Motos Recuperadas Hoje */}
+          <Card className="border-l-4 border-l-orange-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">Motos Relocadas Hoje</p>
-                <p className="text-2xl font-bold text-gray-600">{todayData.motosRelocadasHoje}</p>
+                <p className="text-sm text-muted-foreground font-medium">Motos Recuperadas Hoje</p>
+                <p className="text-2xl font-bold text-orange-500">{todayData.motosRecuperadasHoje}</p>
                 <p className="text-xs text-muted-foreground">unidades</p>
               </div>
-              <div className="p-3 rounded-lg bg-gray-400">
+              <div className="p-3 rounded-lg bg-orange-500">
                 <ArrowRight className="h-6 w-6 text-white" />
               </div>
             </CardContent>
           </Card>
-
-          <Card className="border-l-4 border-l-violet-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Em Manutenção Hoje */}
+          <Card className="border-l-4 border-l-violet-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
-                <p className="text-sm text-muted-foreground font-medium">Motos em Manutenção</p>
+                <p className="text-sm text-muted-foreground font-medium">Em Manutenção Hoje</p>
                 <p className="text-2xl font-bold text-violet-500">{todayData.motosEmManutencao}</p>
                 <p className="text-xs text-muted-foreground">unidades</p>
               </div>
@@ -454,9 +455,10 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Cards de dados do mês selecionado */}
+        {/* Cards de dados do mês selecionado - NOVO PADRÃO */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-6">
-          <Card className="border-l-4 border-l-blue-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Motos Alugadas */}
+          <Card className="border-l-4 border-l-blue-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
                 <p className="text-sm text-muted-foreground font-medium">Motos Alugadas</p>
@@ -468,8 +470,8 @@ export default function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-
-          <Card className="border-l-4 border-l-green-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Motos Disponíveis */}
+          <Card className="border-l-4 border-l-green-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
                 <p className="text-sm text-muted-foreground font-medium">Motos Disponíveis</p>
@@ -481,21 +483,21 @@ export default function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-
-          <Card className="border-l-4 border-l-gray-400 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Motos Relocadas */}
+          <Card className="border-l-4 border-l-orange-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
                 <p className="text-sm text-muted-foreground font-medium">Motos Relocadas</p>
-                <p className="text-2xl font-bold text-gray-600">{monthData.motosRelocadas}</p>
+                <p className="text-2xl font-bold text-orange-500">{monthData.motosRelocadas}</p>
                 <p className="text-xs text-muted-foreground">em {monthNames[selectedMonth]}/{selectedYear}</p>
               </div>
-              <div className="p-3 rounded-lg bg-gray-400">
+              <div className="p-3 rounded-lg bg-orange-500">
                 <ArrowRight className="h-6 w-6 text-white" />
               </div>
             </CardContent>
           </Card>
-
-          <Card className="border-l-4 border-l-violet-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {/* Em Manutenção */}
+          <Card className="border-l-4 border-l-violet-500 shadow-lg">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
                 <p className="text-sm text-muted-foreground font-medium">Em Manutenção</p>
