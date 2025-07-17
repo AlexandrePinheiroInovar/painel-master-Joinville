@@ -4,6 +4,7 @@
 export const ALLOWED_MOTORCYCLE_USER_IDS = [
   "edsTZ2zG54Ph2ZoNSyFZXoJj74s2",
   "FOHbVCbMyhadO3tm1rVdknwLVPr1",
+  "870qQuK1lrcuOnWf1kUDOJOF8cv2", // Novo UID autorizado
   // Adicione aqui outros UIDs permitidos
 ];
 
@@ -11,6 +12,7 @@ export const ALLOWED_MOTORCYCLE_USER_IDS = [
 export const ALLOWED_VENDA_MOTOS_USER_IDS = [
   "edsTZ2zG54Ph2ZoNSyFZXoJj74s2",
   "FOHbVCbMyhadO3tm1rVdknwLVPr1",
+  "870qQuK1lrcuOnWf1kUDOJOF8cv2", // Novo UID autorizado
   // Adicione aqui outros UIDs permitidos
 ];
 
