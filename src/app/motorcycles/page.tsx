@@ -37,6 +37,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ShieldAlert } from "lucide-react";
 import { hasMotorcycleAccess } from '@/lib/utils/permissions';
+import { ALLOWED_MOTORCYCLE_USER_IDS } from '@/lib/utils/permissions';
 
 export type MotorcyclePageFilters = {
   status: MotorcycleStatus | 'all';
@@ -64,6 +65,12 @@ export default function MotorcyclesPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const { user, loading } = useAuth();
+
+  // DEBUG: Logar UIDs permitidos e UID do usuário logado
+  if (typeof window !== 'undefined') {
+    console.log('DEBUG - UIDs permitidos para Gestão de Motos:', ALLOWED_MOTORCYCLE_USER_IDS);
+    console.log('DEBUG - UID do usuário logado:', user?.uid);
+  }
 
   useEffect(() => {
     setIsLoading(true);
