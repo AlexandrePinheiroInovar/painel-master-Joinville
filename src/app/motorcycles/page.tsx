@@ -45,13 +45,6 @@ export type MotorcyclePageFilters = {
   searchTerm: string;
 };
 
-// Lista de IDs de usuários permitidos (igual à página de vendas de motos)
-const ALLOWED_USER_IDS = [
-  "edsTZ2zG54Ph2ZoNSyFZXoJj74s2", // Exemplo
-  "FOHbVCbMyhadO3tm1rVdknwLVPr1", // Exemplo
-  // Adicione aqui o UID dos usuários liberados
-];
-
 export default function MotorcyclesPage() {
   const [filters, setFilters] = useState<MotorcyclePageFilters>({
     status: 'all',
