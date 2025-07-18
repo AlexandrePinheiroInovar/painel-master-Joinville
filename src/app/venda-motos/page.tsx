@@ -13,8 +13,6 @@ import { DollarSign, ShieldAlert } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { hasVendaMotosAccess } from '@/lib/utils/permissions';
 
-// Lista de IDs de usuários permitidos
-const ALLOWED_USER_IDS = ["edsTZ2zG54Ph2ZoNSyFZXoJj74s2", "FOHbVCbMyhadO3tm1rVdknwLVPr1"];
 
 export default function VendaMotosPage() {
   const { user, loading } = useAuth();
