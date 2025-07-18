@@ -7,6 +7,7 @@ export const ALLOWED_MOTORCYCLE_USER_IDS = [
   "870qQuK1lrcuOnWf1kUDOJOF8cv2", // Novo UID autorizado
   "r9ZPLbtU91QplA5v1PeATPzD1ml2", // Novo UID autorizado
   "D4pBSwBrxhOXK5EMxgxtTJbaoQA2", // Novo UID autorizado
+  "LfT39g5KzKOi3neDpAzN8EfltZD2", // Novo UID autorizado
   // Adicione aqui outros UIDs permitidos
 ];
 
@@ -17,6 +18,7 @@ export const ALLOWED_VENDA_MOTOS_USER_IDS = [
   "870qQuK1lrcuOnWf1kUDOJOF8cv2", // Novo UID autorizado
   "r9ZPLbtU91QplA5v1PeATPzD1ml2", // Novo UID autorizado
   "D4pBSwBrxhOXK5EMxgxtTJbaoQA2", // Novo UID autorizado
+  "LfT39g5KzKOi3neDpAzN8EfltZD2", // Novo UID autorizado
   // Adicione aqui outros UIDs permitidos
 ];
 
