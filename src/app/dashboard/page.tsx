@@ -429,7 +429,7 @@ export default function DashboardPage() {
               <span className="text-sm font-medium text-muted-foreground">Filtrar Status da Frota por Período:</span>
               <Select value={selectedMonth.toString()} onValueChange={(value) => setSelectedMonth(parseInt(value))}>
                 <SelectTrigger className="w-[140px]">
-                  <SelectValue />
+                  <SelectValue>{monthNames[selectedMonth]}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {monthNames.map((month, index) => (
