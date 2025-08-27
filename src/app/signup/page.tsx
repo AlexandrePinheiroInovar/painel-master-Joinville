@@ -66,7 +66,7 @@ export default function SignUpPage() {
 
     try {
       await signUp(formData.email, formData.password, formData.displayName);
-      router.push('/dashboard');
+      router.push('/login');
     } catch (error) {
       console.error('Erro no cadastro:', error);
     } finally {
