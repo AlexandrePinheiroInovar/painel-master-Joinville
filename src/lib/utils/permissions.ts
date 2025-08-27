@@ -8,6 +8,13 @@ export const ALLOWED_MOTORCYCLE_USER_IDS = [
   "r9ZPLbtU91QplA5v1PeATPzD1ml2", // Novo UID autorizado
   "D4pBSwBrxhOXK5EMxgxtTJbaoQA2", // Novo UID autorizado
   "LfT39g5KzKOi3neDpAzN8EfltZD2", // Novo UID autorizado
+  "wgeE1LsZhuVIMrSMekkNXroppKE3", // Novo UID autorizado
+  "ggImtEKZK0MMZeEf6501bIjNra83", // Novo UID autorizado
+  "KKoK8S9oA9OkSqqLJcHCCm5dtr23", // Novo UID autorizado
+  "SBklsYG1C2f8r1PKkLRHlsVoVHo1", // Novo UID autorizado
+  "xXxXGr8ZfhR5wU4MdxiW9zSPPNw1", // Novo UID autorizado
+  "eIWJlKb3GxfW9ytHgiq6Ykocr7z2", // Novo UID autorizado
+  "sB1Wucwe9ZeSGEuj9h2Uapd2d0h2", // Novo UID autorizado
   // Adicione aqui outros UIDs permitidos
 ];
 
@@ -19,6 +26,13 @@ export const ALLOWED_VENDA_MOTOS_USER_IDS = [
   "r9ZPLbtU91QplA5v1PeATPzD1ml2", // Novo UID autorizado
   "D4pBSwBrxhOXK5EMxgxtTJbaoQA2", // Novo UID autorizado
   "LfT39g5KzKOi3neDpAzN8EfltZD2", // Novo UID autorizado
+  "wgeE1LsZhuVIMrSMekkNXroppKE3", // Novo UID autorizado
+  "ggImtEKZK0MMZeEf6501bIjNra83", // Novo UID autorizado
+  "KKoK8S9oA9OkSqqLJcHCCm5dtr23", // Novo UID autorizado
+  "SBklsYG1C2f8r1PKkLRHlsVoVHo1", // Novo UID autorizado
+  "xXxXGr8ZfhR5wU4MdxiW9zSPPNw1", // Novo UID autorizado
+  "eIWJlKb3GxfW9ytHgiq6Ykocr7z2", // Novo UID autorizado
+  "sB1Wucwe9ZeSGEuj9h2Uapd2d0h2", // Novo UID autorizado
   // Adicione aqui outros UIDs permitidos
 ];
 

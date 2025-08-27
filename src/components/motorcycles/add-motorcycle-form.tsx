@@ -56,6 +56,8 @@ const motorcycleModelOptions = [
   { value: 'HAOJUE DK 150', label: 'HAOJUE DK 150' },
   { value: 'HAOJUE DK160', label: 'HAOJUE DK160' },
   { value: 'SHINERAY XY150', label: 'SHINERAY XY150' },
+  { value: 'YAMAHA FACTOR 150', label: 'YAMAHA FACTOR 150' },
+  { value: 'YAMAHA FACTOR DX 150', label: 'YAMAHA FACTOR DX 150' },
 ];
 
 const formSchema = z.object({
