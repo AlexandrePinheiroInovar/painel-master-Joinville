@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import type { Motorcycle, MotorcycleStatus } from "@/lib/types";
+import type { Motorcycle, MotorcycleStatus, MotorcycleColor } from "@/lib/types";
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal, QrCode, Eye, Edit, Trash2, CheckCircle, XCircle, Bike, Wrench, Play, Pause } from 'lucide-react';
 import {
@@ -51,6 +51,8 @@ const getStatusBadgeClassName = (status?: MotorcycleStatus) => {
     case 'relocada': return 'bg-blue-500 hover:bg-blue-600 text-white border-blue-500';
     case 'indisponivel_rastreador': return 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500';
     case 'indisponivel_emplacamento': return 'bg-purple-500 hover:bg-purple-600 text-white border-purple-500';
+    case 'furto_roubo': return 'bg-red-800 hover:bg-red-900 text-white border-red-800';
+    case 'apropriacao_indebita': return 'bg-red-600 hover:bg-red-700 text-white border-red-600';
     default: return 'bg-gray-200 text-gray-700 border-gray-400';
   }
 }
@@ -67,9 +69,23 @@ const translateStatus = (status?: MotorcycleStatus): string => {
     case 'relocada': return 'Relocada';
     case 'indisponivel_rastreador': return 'Indisponível Rastreador';
     case 'indisponivel_emplacamento': return 'Indisponível Emplacamento';
+    case 'furto_roubo': return 'Furto/Roubo';
+    case 'apropriacao_indebita': return 'Apropriação Indébita';
     default:
       const s = status as string;
       return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+};
+
+const translateColor = (color?: MotorcycleColor): string => {
+  if (!color) return 'N/Definido';
+  switch (color) {
+    case 'branca': return 'Branca';
+    case 'preta': return 'Preta';
+    case 'azul': return 'Azul';
+    case 'vermelha': return 'Vermelha';
+    case 'cinza': return 'Cinza';
+    default: return color;
   }
 };
 
@@ -92,12 +108,13 @@ export function MotorcycleList({ filters, motorcycles, onUpdateStatus, onDeleteM
     return motorcycles.filter(moto => {
       const statusMatch = filters.status === 'all' || moto.status === filters.status;
       const modelMatch = filters.model === 'all' || (moto.model || '').toLowerCase().includes(filters.model.toLowerCase());
+      const corMatch = filters.cor === 'all' || moto.cor === filters.cor;
       const searchTermMatch = filters.searchTerm === '' ||
         (moto.placa || '').toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
         (moto.franqueado || '').toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
         (moto.model || '').toLowerCase().includes(filters.searchTerm.toLowerCase());
 
-      return statusMatch && modelMatch && searchTermMatch;
+      return statusMatch && modelMatch && corMatch && searchTermMatch;
     });
   }, [filters, motorcycles]);
 
@@ -125,6 +142,7 @@ export function MotorcycleList({ filters, motorcycles, onUpdateStatus, onDeleteM
               <TableHead>Modelo</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Tipo</TableHead>
+              <TableHead>Cor</TableHead>
               <TableHead>Franqueado</TableHead>
               <TableHead>Valor Semanal</TableHead>
               <TableHead>Últ. Movimento</TableHead>
@@ -135,7 +153,7 @@ export function MotorcycleList({ filters, motorcycles, onUpdateStatus, onDeleteM
           <TableBody>
             {filteredMotorcycles.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={10} className="text-center text-muted-foreground h-24">
+                <TableCell colSpan={11} className="text-center text-muted-foreground h-24">
                   Nenhuma motocicleta corresponde aos filtros atuais.
                 </TableCell>
               </TableRow>
@@ -164,6 +182,7 @@ export function MotorcycleList({ filters, motorcycles, onUpdateStatus, onDeleteM
                       </Badge>
                     </TableCell>
                     <TableCell className="capitalize">{moto.type ? (moto.type === 'nova' ? 'Nova' : 'Usada') : 'N/Definido'}</TableCell>
+                    <TableCell>{translateColor(moto.cor)}</TableCell>
                     <TableCell>{moto.franqueado || 'N/Definido'}</TableCell>
                     <TableCell>
                       {moto.valorSemanal ? `R$ ${moto.valorSemanal.toFixed(2).replace('.', ',')}` : 'N/A'}

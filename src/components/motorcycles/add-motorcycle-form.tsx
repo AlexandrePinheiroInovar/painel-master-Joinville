@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { CalendarIcon, Save, XIcon, Edit, PlusCircle } from "lucide-react";
 import { MotorcycleIcon as TitleIcon } from '@/components/icons/motorcycle-icon';
-import type { Motorcycle, MotorcycleStatus, MotorcycleType } from "@/lib/types";
+import type { Motorcycle, MotorcycleStatus, MotorcycleType, MotorcycleColor } from "@/lib/types";
 import { DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -42,11 +42,21 @@ const motorcycleStatusOptions: { value: MotorcycleStatus; label: string }[] = [
   { value: 'manutencao', label: 'Manutenção' },
   { value: 'indisponivel_rastreador', label: 'Indisponível Rastreador' },
   { value: 'indisponivel_emplacamento', label: 'Indisponível Emplacamento' },
+  { value: 'furto_roubo', label: 'Furto/Roubo' },
+  { value: 'apropriacao_indebita', label: 'Apropriação Indébita' },
 ];
 
 const motorcycleTypeOptions: { value: MotorcycleType; label: string }[] = [
   { value: 'nova', label: 'Nova' },
   { value: 'usada', label: 'Usada' },
+];
+
+const motorcycleColorOptions: { value: MotorcycleColor; label: string }[] = [
+  { value: 'branca', label: 'Branca' },
+  { value: 'preta', label: 'Preta' },
+  { value: 'azul', label: 'Azul' },
+  { value: 'vermelha', label: 'Vermelha' },
+  { value: 'cinza', label: 'Cinza' },
 ];
 
 const motorcycleModelOptions = [
@@ -64,7 +74,8 @@ const formSchema = z.object({
   placa: z.string().min(7, "A placa deve ter pelo menos 7 caracteres.").max(8, "A placa deve ter no máximo 8 caracteres.").regex(/^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/, "Formato de placa inválido (Ex: AAA1B23)."),
   model: z.string().optional(),
   type: z.enum(['nova', 'usada']).optional(),
-  status: z.enum(['active', 'inadimplente', 'recolhida', 'relocada', 'manutencao', 'alugada', 'indisponivel_rastreador', 'indisponivel_emplacamento']).optional(),
+  status: z.enum(['active', 'inadimplente', 'recolhida', 'relocada', 'manutencao', 'alugada', 'indisponivel_rastreador', 'indisponivel_emplacamento', 'furto_roubo', 'apropriacao_indebita']).optional(),
+  cor: z.enum(['branca', 'preta', 'azul', 'vermelha', 'cinza']).optional(),
   valorSemanal: z.coerce.number().positive("O valor semanal deve ser positivo.").optional().or(z.literal('')),
   data_ultima_mov: z.date().optional(),
   tempo_ocioso_dias: z.coerce.number().min(0, "Os dias parado não podem ser negativos.").optional().or(z.literal('')),
@@ -79,6 +90,7 @@ const defaultFormValues: FormValues = {
   model: "",
   type: undefined,
   status: undefined,
+  cor: undefined,
   valorSemanal: undefined,
   data_ultima_mov: undefined,
   tempo_ocioso_dias: undefined,
@@ -105,6 +117,7 @@ export function AddMotorcycleForm({ onSubmit, onCancel, initialData }: AddMotorc
         model: initialData.model || "",
         type: initialData.type || undefined,
         status: initialData.status || undefined,
+        cor: initialData.cor || undefined,
         valorSemanal: initialData.valorSemanal !== undefined ? initialData.valorSemanal : '',
         // Convert string date from initialData to Date object for the calendar
         data_ultima_mov: initialData.data_ultima_mov && isValid(parseISO(initialData.data_ultima_mov)) ? parseISO(initialData.data_ultima_mov) : undefined,
@@ -208,7 +221,7 @@ export function AddMotorcycleForm({ onSubmit, onCancel, initialData }: AddMotorc
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <FormField
               control={form.control}
               name="status"
@@ -223,6 +236,28 @@ export function AddMotorcycleForm({ onSubmit, onCancel, initialData }: AddMotorc
                     </FormControl>
                     <SelectContent>
                       {motorcycleStatusOptions.map(opt => (
+                        <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cor</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value || ""}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione a cor" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {motorcycleColorOptions.map(opt => (
                         <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
                       ))}
                     </SelectContent>

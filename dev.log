@@ -1,0 +1,23 @@
+
+> nextn@0.1.0 dev
+> next dev -p 3001
+
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:3001
+   - Network:      http://10.255.255.254:3001
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 64s
+ ○ Compiling / ...
+ ✓ Compiled / in 61.2s (1030 modules)
+ GET / 307 in 67298ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 10.7s (1086 modules)
+ GET /login/ 200 in 7042ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 10.2s (2571 modules)
+ GET /dashboard/ 200 in 13227ms
+ ○ Compiling /motorcycles ...
+ ✓ Compiled /motorcycles in 5.6s (4206 modules)
+ GET /motorcycles/ 200 in 7450ms

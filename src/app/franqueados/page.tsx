@@ -134,6 +134,8 @@ export default function FranqueadosPage() {
             alugada: 0,
             manutencao: 0,
             relocada: 0,
+            furto_roubo: 0,
+            apropriacao_indebita: 0,
             indefinido: 0,
           },
           totalGeral: 0,
